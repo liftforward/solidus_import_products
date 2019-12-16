@@ -104,10 +104,9 @@ module SolidusImportProducts
             let(:variant1) { Spree::Variant.last(3).first }
             let(:variant2) { Spree::Variant.last(3).second }
 
-            it { expect(product2.variants.count).to eq 0 }
-            it { expect(product.variants.count).to eq 2 }
-            it { expect(product.variants.first).to eq variant1 }
-            it { expect(product.variants.last).to eq variant2 }
+            it { expect(product2.variants.count).to eq 1 }
+            it { expect(product.variants.count).to eq 3 }
+            it { expect(product.variants.map(&:sku)).to eq ["6234", "6236", "6235"] }
           end
         end
 
@@ -130,7 +129,7 @@ module SolidusImportProducts
 
           it do
             with_properties
-            expect(last_product.variants.count).to eq 2
+            expect(last_product.variants.count).to eq 3
           end
         end
 

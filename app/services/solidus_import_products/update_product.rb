@@ -24,7 +24,9 @@ module SolidusImportProducts
         if field == :product_properties
           value.each { |prop_field, prop_value| properties_hash[prop_field] = prop_value }
         elsif field == :attributes
-          value.each { |attr_field, attr_value| product.send("#{attr_field}=", attr_value) if product.respond_to?("#{attr_field}=") }
+          value.each do |attr_field, attr_value| 
+            product.send("#{attr_field}=", attr_value) if product.respond_to?("#{attr_field}=") unless attr_field == :sku
+          end
         end
       end
 
