@@ -76,12 +76,12 @@ module SolidusImportProducts
     end
 
     def get_or_create_option_type(field)
-      Spree::OptionType.where('name = :field or presentation = :field', field: field.to_s).first ||
+      Spree::OptionType.where(name: field).or(Spree::OptionType.where(presentation: field)).first ||
         Spree::OptionType.create(name: field, presentation: field)
     end
 
     def get_or_create_option_value(option_type, value)
-      option_type.option_values.where('name = :value or presentation = :value', value: value).first ||
+      option_type.option_values.where(name: value).or(option_type.option_values.where(presentation: value)).first  ||
         option_type.option_values.create(presentation: value, name: value)
     end
 
